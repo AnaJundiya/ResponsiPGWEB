@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunung Lawu</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #ffffff;
+        }
+
+        /* Transparent Navbar */
+        .navbar {
+            background-color: #004953 !important;
+            /* Transparency */
+            backdrop-filter: blur(5px);
+            /* Blur effect */
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .navbar-brand small {
+            display: block;
+            font-size: 0.7rem;
+            color: #ccc;
+        }
+
+        .nav-link {
+            color: white !important;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .hero {
+            background: url('foto/kelimutu.jpg') no-repeat center center/cover;
+            text-align: center;
+            color: #fff;
+            padding: 100px 0;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb-item a {
+            color: #f0f0f0;
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: #f0f0f0;
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 40px;
+            background-color: #f9f9f9;
+        }
+
+        .content img {
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .content .text {
+            max-width: 600px;
+            text-align: justify;
+        }
+
+        /* Footer */
+        .footer {
+            color: #666;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                MAPALA
+                <small>Map Pendakian Alam Nusantara</small>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="creator.html">Creator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="info.html">Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="map.html">Map</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>Gunung Lawu</h2>
+        <div class="breadcrumb-container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="home.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="info.html">Information</a></li>
+                    <li class="breadcrumb-item"><a href="lawu.html">Gunung Lawu</a></li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content">
+        <img src="foto/lawu.jpg" alt="Gunung Lawu">
+        <div class="text">
+            <p>
+                Gunung Lawu adalah gunung berapi yang terletak di perbatasan Jawa Tengah dan Jawa Timur
+                dengan ketinggian 3.265 meter di atas permukaan laut (mdpl). Gunung ini memiliki daya tarik mistis
+                dan sejarah yang kuat serta menjadi destinasi favorit para pendaki dan peziarah.
+                Gunung Lawu dikenal sebagai salah satu gunung yang memiliki nuansa spiritual kental, terkait erat dengan
+                legenda dan sejarah kerajaan Majapahit. Puncaknya terdiri dari Hargo Dalem, Hargo Dumilah, dan
+                Hargo Dumiling, di mana Hargo Dumilah merupakan puncak tertinggi.
+                Selain keindahan alam berupa hutan lebat, padang edelweiss, dan udara yang sejuk, Lawu juga menawarkan
+                berbagai situs bersejarah seperti Candi Cetho dan Candi Sukuh yang berada di kaki gunung. Jalur
+                pendakiannya yang populer, seperti Cemoro Sewu dan Cemoro Kandang, menawarkan tantangan dengan panorama
+                indah, termasuk pemandangan sunrise yang memukau.
+                Gunung Lawu tidak hanya menarik bagi pendaki, tetapi juga bagi mereka yang mencari ketenangan, refleksi
+                spiritual, atau sekadar menikmati keindahan alam pegunungan.
+            </p>
+        </div>
+    </section>
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Copyright &copy;2024 by Ana Jundiya Muthia Hamzah</p>
+    </div>
+</body>
+
+</html>
