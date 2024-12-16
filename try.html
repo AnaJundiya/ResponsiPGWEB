@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MAPALA - Database</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #004953 !important;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: white !important;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Dropdown Styling */
+        .dropdown-menu {
+            border-radius: 10px;
+            background-color: white;
+        }
+
+        .dropdown-item {
+            font-size: 0.9rem;
+            color: #004953;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: white;
+            color: #319177;
+        }
+
+        .navbar .dropdown-menu {
+            left: 0 !important;
+            /* Paksa dropdown sejajar ke kiri */
+            right: auto !important;
+            /* Hilangkan pengaturan ke kanan */
+            transform: translateX(0) !important;
+            /* Pastikan tidak ada offset horizontal */
+        }
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        /* Map Styling */
+        #map {
+            width: 100%;
+            height: 80vh; /* Adjust height of map */
+            margin-top: 10px; /* Prevent map from overlapping navbar */
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #004953;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+        <!--SCRIPT NAVBAR-->
+        <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary shadow-sm">
+            <div class="container-fluid">
+                <!-- Navbar Items di Kiri -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold" href="home.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold" href="creator.html">Creator</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-semibold" href="info.html">Info</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Map
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-start shadow border-0" style="min-width: 200px;">
+                                <li>
+                                    <a class="dropdown-item py-0.3" href="map.html">
+                                        <i class="bi bi-database me-0.3"></i>Map
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-0.3" href="try.html">
+                                        <i class="bi bi-database me-0.3"></i>Database
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-0.3"
+                                        href="https://r.search.yahoo.com/_ylt=Awr48yPwKWBnoGMPU0pXNyoA;_ylu=Y29sbwNncTEEcG9zAzEEdnRpZAMEc2VjA3Ny/RV=2/RE=1735565041/RO=10/RU=https%3a%2f%2fwww.indonesia-geospasial.com%2f2020%2f05%2fdownload-data-peta.html/RK=2/RS=qPEiR9RLCb6AEbavFIl3ilcjATc-">
+                                        <i class="bi bi-geo-alt me-0.3"></i>Sumber Data
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Navbar Brand di Kanan -->
+                <a class="navbar-brand fw-bold text-primary ms-auto" href="index.html"> <!-- Tambahkan ms-auto -->
+                    MAPALA
+                    <small class="text-secondary d-block" style="font-size: 0.8rem;">Map Pendakian Alam Nusantara</small>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+    <div class="hero-section">
+        <h1>DATABASE</h1>
+        <p>Database dan Persebaran Titik Gunung di Indonesia</p>
+    </div>
+
+
+        <!-- Map -->
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        // Initialize the map
+        var map = L.map("map").setView([-2.5489, 118.0149], 5); // Default center over Indonesia
+
+        // Add OpenStreetMap tile layer
+        var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        // GeoJSON data
+        var geojsonData = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "No": 1,
+                        "Nama": "Gunung Kerinci",
+                        "Jenis_Gunu": "Stratovulkan",
+                        "Lokasi": "Lubuk Gadang Sel., Kec. Sangir, Kabupaten Solok Selatan, Sumatera Barat",
+                        "Letusan_Te": 2020,
+                        "Ketinggian": "3.800 m"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [101.2644, -1.6975]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "No": 2,
+                        "Nama": "Gunung Dempo",
+                        "Jenis_Gunu": "Stratovulkan",
+                        "Lokasi": "Dempio Makmur, Kec. Pagar Alam Utara, Kota Pagar Alam, Sumatera Selatan",
+                        "Letusan_Te": 2009,
+                        "Ketinggian": "3.173 m"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [103.2612, -4.0473]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "No": 3,
+                        "Nama": "Gunung Agung",
+                        "Jenis_Gunu": "Stratovulkan",
+                        "Lokasi": "Jungutan, Kec. Bebandem, Kabupaten Karangasem, Bali",
+                        "Letusan_Te": 2018,
+                        "Ketinggian": "3.142 m"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [115.508472, -8.342084]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "No": 4,
+                        "Nama": "Gunung Sumbing",
+                        "Jenis_Gunu": "Stratovulkan",
+                        "Lokasi": "Purwojiwo, Kec. Kalikajar, Kabupaten Wonosobo, Jawa Tengah",
+                        "Letusan_Te": 1921,
+                        "Ketinggian": "2.507 m"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [110.045656, -7.384841]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "No": 5,
+                        "Nama": "Gunung Merbabu",
+                        "Jenis_Gunu": "Stratovulkan",
+                        "Lokasi": "Suroteleng, Kec. Selo, Kabupaten Boyolali, Jawa Tengah",
+                        "Letusan_Te": 1797,
+                        "Ketinggian": "3.145 m"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [110.428479, -7.455899]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "No": 6,
+                        "Nama": "Gunung Lawu",
+                        "Jenis_Gunu": "Stratovulkan",
+                        "Lokasi": "Area Hutan, Gondosuli, Kec. Tawangmangu, Kabupaten Karanganyar, Jawa Tengah",
+                        "Letusan_Te": 1885,
+                        "Ketinggian": "3.265 m"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [111.194366, -7.625796]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "No": 7,
+                        "Nama": "Gunung Slamet",
+                        "Jenis_Gunu": "Stratovulkan",
+                        "Lokasi": "Sawah Dan Kebun, Gunungsari, Kec. Pulosari, Kabupaten Pemalang, Jawa Tengah",
+                        "Letusan_Te": 2014,
+                        "Ketinggian": "3.432 m"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [109.208226, -7.242482]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "No": 8,
+                        "Nama": "Gunung Bromo",
+                        "Jenis_Gunu": "Kerucut Bara",
+                        "Lokasi": "Bromo, Podokoyo, Kec. Tosari, Pasuruan, Jawa Timur",
+                        "Letusan_Te": 2016,
+                        "Ketinggian": "2.329 m"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [112.950147, -7.942493]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "No": 9,
+                        "Nama": "Gunung Semeru",
+                        "Jenis_Gunu": "Stratovulkan",
+                        "Lokasi": "Ngampo, Pasrujambe, Kec. Pasrujambe, Kabupaten Lumajang, Jawa Timur",
+                        "Letusan_Te": 2021,
+                        "Ketinggian": "3.676 m"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [112.922675, -8.108527]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "No": 10,
+                        "Nama": "Gunung Rinjani",
+                        "Jenis_Gunu": "Stratovulkan",
+                        "Lokasi": "Sembalun Lawang, Kec. Sembalun, Kabupaten Lombok Timur, Nusa Tenggara Barat",
+                        "Letusan_Te": 2016,
+                        "Ketinggian": "3.726 m"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [116.457995, -8.411630]
+                    }
+                },
+            ]
+        };
+
+        // Add GeoJSON data to the map
+        L.geoJSON(geojsonData, {
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup(
+                    `<b>Nama Gunung:</b> ${feature.properties.Nama}<br>` +
+                    `<b>Jenis:</b> ${feature.properties.Jenis_Gunu}<br>` +
+                    `<b>Lokasi:</b> ${feature.properties.Lokasi}<br>` +
+                    `<b>Letusan Terakhir:</b> ${feature.properties.Letusan_Te}<br>` +
+                    `<b>Ketinggian:</b> ${feature.properties.Ketinggian}`
+                );
+            }
+        }).addTo(map);
+
+    </script>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Jenis</th>
+                <th>Lokasi</th>
+                <th>Letusan Terakhir</th>
+                <th>Ketinggian</th>
+            </tr>
+        </thead>
+        <tbody>
+            <script>
+                // Populate table with GeoJSON data
+                geojsonData.features.forEach((feature) => {
+                    document.write(
+                        `<tr>
+                            <td>${feature.properties.No}</td>
+                            <td>${feature.properties.Nama}</td>
+                            <td>${feature.properties.Jenis_Gunu}</td>
+                            <td>${feature.properties.Lokasi}</td>
+                            <td>${feature.properties.Letusan_Te}</td>
+                            <td>${feature.properties.Ketinggian}</td>
+                        </tr>`
+                    );
+                });
+            </script>
+        </tbody>
+    </table>
+
+    <!-- Footer -->
+    <div class="footer">
+        Copyright &copy;2024 by Ana Jundiya Muthia Hamzah
+    </div>
+</body>
+
+</html>

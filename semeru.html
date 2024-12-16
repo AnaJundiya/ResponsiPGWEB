@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunung Semeru</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #ffffff;
+        }
+
+        /* Transparent Navbar */
+        .navbar {
+            background-color: #004953 !important;
+            /* Transparency */
+            backdrop-filter: blur(5px);
+            /* Blur effect */
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .navbar-brand small {
+            display: block;
+            font-size: 0.7rem;
+            color: #ccc;
+        }
+
+        .nav-link {
+            color: white !important;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .hero {
+            background: url('foto/kelimutu.jpg') no-repeat center center/cover;
+            text-align: center;
+            color: #fff;
+            padding: 100px 0;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb-item a {
+            color: #f0f0f0;
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: #f0f0f0;
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 40px;
+            background-color: #f9f9f9;
+        }
+
+        .content img {
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .content .text {
+            max-width: 600px;
+            text-align: justify;
+        }
+
+        /* Footer */
+        .footer {
+            color: #666;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                MAPALA
+                <small>Map Pendakian Alam Nusantara</small>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="creator.html">Creator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="info.html">Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="map.html">Map</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>Gunung Semeru</h2>
+        <div class="breadcrumb-container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="home.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="info.html">Information</a></li>
+                    <li class="breadcrumb-item"><a href="semeru.html">Gunung Semeru</a></li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content">
+        <img src="foto/semeru.jpg" alt="Gunung Semeru">
+        <div class="text">
+            <p>
+                Gunung Semeru adalah gunung tertinggi di Pulau Jawa dengan ketinggian 3.676 meter di atas permukaan laut (mdpl). Terletak di Taman Nasional
+                Bromo Tengger Semeru, Jawa Timur, Semeru merupakan gunung berapi aktif yang terkenal dengan keindahan
+                alamnya serta statusnya sebagai salah satu gunung paling populer di Indonesia untuk pendakian.
+                Gunung Semeru memiliki kawah yang aktif, dengan Kawah Jonggring Saloko yang sering mengeluarkan abu
+                vulkanik, menciptakan pemandangan dramatis. Semeru juga dikenal dengan jalur pendakian yang menantang
+                dan pemandangan spektakuler, termasuk Ranu Kumbolo, danau yang indah di kaki gunung yang menjadi
+                tempat favorit para pendaki untuk beristirahat.
+                Puncak Semeru, yang dikenal dengan nama Mahameru, menjadi tujuan utama pendakian, menawarkan
+                pemandangan luar biasa dari atas awan. Selain keindahan alamnya, gunung ini juga memiliki nilai
+                spiritual dan budaya yang tinggi bagi masyarakat Tengger di sekitarnya. Pendakian ke Gunung Semeru
+                adalah pengalaman yang menantang namun memuaskan bagi para pecinta alam dan pendaki gunung.
+            </p>
+        </div>
+    </section>
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Copyright &copy;2024 by Ana Jundiya Muthia Hamzah</p>
+    </div>
+</body>
+
+</html>

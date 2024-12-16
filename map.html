@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MAPALA - Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="plugin/leaflet-search-master/leaflet-search-master/dist/leaflet-search.min.css">
+    <link rel="stylesheet"
+        href="plugin/Leaflet.defaultextent-master/Leaflet.defaultextent-master/dist/leaflet.defaultextent.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        html,
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        /* Transparent Navbar */
+        .navbar {
+            background-color: rgb(72, 61, 139) !important;
+            /* Transparency */
+            backdrop-filter: blur(5px);
+            /* Blur effect */
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .navbar-brand small {
+            display: block;
+            font-size: 0.7rem;
+            color: #ccc;
+        }
+
+        .nav-link {
+            color: white !important;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Dropdown Styling */
+        .dropdown-menu {
+            border-radius: 10px;
+            background-color: white;
+        }
+
+        .dropdown-item {
+            font-size: 0.9rem;
+            color: #b284be;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: white;
+            color: #b284be;
+        }
+
+        #map {
+            width: 100%;
+            height: calc(100vh);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <!--SCRIPT NAVBAR-->
+    <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary shadow-sm">
+        <div class="container-fluid">
+            <!-- Navbar Items di Kiri -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-semibold" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-semibold" href="creator.html">Creator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark fw-semibold" href="info.html">Info</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Map
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-start shadow border-0" style="min-width: 200px;">
+                            <li>
+                                <a class="dropdown-item py-0.3" href="map.html">
+                                    <i class="bi bi-database me-0.3"></i>Map
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item py-0.3" href="try.html">
+                                    <i class="bi bi-database me-0.3"></i>Database
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item py-0.3"
+                                    href="https://r.search.yahoo.com/_ylt=Awr48yPwKWBnoGMPU0pXNyoA;_ylu=Y29sbwNncTEEcG9zAzEEdnRpZAMEc2VjA3Ny/RV=2/RE=1735565041/RO=10/RU=https%3a%2f%2fwww.indonesia-geospasial.com%2f2020%2f05%2fdownload-data-peta.html/RK=2/RS=qPEiR9RLCb6AEbavFIl3ilcjATc-">
+                                    <i class="bi bi-geo-alt me-0.3"></i>Sumber Data
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- Navbar Brand di Kanan -->
+            <a class="navbar-brand fw-bold text-primary ms-auto" href="index.html"> <!-- Tambahkan ms-auto -->
+                MAPALA
+                <small class="text-secondary d-block" style="font-size: 0.8rem;">Map Pendakian Alam Nusantara</small>
+            </a>
+        </div>
+    </nav>
+
+    <div id="map"></div>
+
+
+    <!-- FEATURE Modal -->
+    <div class="modal fade" id="featureModal" tabindex="-1" aria-labelledby="featureModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="featureModalTitle"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="featureModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="plugin/leaflet-search-master/leaflet-search-master/dist/leaflet-search.min.js"></script>
+    <script
+        src="plugin/Leaflet.defaultextent-master/Leaflet.defaultextent-master/dist/leaflet.defaultextent.js"></script>
+    <script>
+        // Inisialisasi peta
+        var map = L.map("map").setView([-7.384841, 110.045656], 13);
+
+        // Tile Layer Base Map
+        var basemap = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        });
+
+        // Menambahkan basemap ke dalam peta
+        basemap.addTo(map);
+
+        // Membuat pane khusus untuk marker Gunung
+        map.createPane("paneTitikGunung");
+        map.getPane("paneTitikGunung").style.zIndex = 650; // Atur z-index untuk memastikan marker muncul di atas elemen lain
+        map.getPane("paneTitikGunung").style.pointerEvents = "auto"; // Memastikan marker dapat diinteraksi
+
+        // GeoJSON Point Sarana Prasarana
+        var titikgunung = L.geoJSON(null, {
+            pane: "paneTitikGunung", // Menentukan pane khusus untuk marker
+            // Style
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {
+                    icon: L.icon({
+                        iconUrl: "icon/icontitik.png", // icon marker
+                        iconSize: [48, 48], // ukuran icon
+                        iconAnchor: [24, 48], // posisi icon terhadap titik (point)
+                        popupAnchor: [0, -48], // posisi popup terhadap icon
+                        tooltipAnchor: [-16, -30], // posisi tooltip terhadap icon
+                    }),
+                });
+            },
+
+            // onEachFeature
+            onEachFeature: function (feature, layer) {
+                // variable popup content
+                var popup_content = "Nama: " + feature.properties.Name + "<br>" + "Jenis Gunung:  " + feature.properties.Jenis_Gunu + "<br>" +
+                    "Letusan Terakhir:  " + feature.properties.Letusan_Te + "<br>" + "Tinggi Gunung:  " + feature.properties.Ketinggian + "<br>" +
+                    "Lokasi:  " + feature.properties.Lokasi + "<br>" +
+                    "Coordinate: " + feature.geometry.coordinates[1] + ", " + feature.geometry.coordinates[0];
+
+                layer.on({
+                    click: function (e) {
+                        titikgunung.bindPopup(popup_content);
+
+                        //menampilkan Feauture Modal
+                        $("#featureModalTitle").html("Gunung");
+                        $("#featureModalBody").html(feature.properties.Nama);
+                        $("#featureModalBody").html(popup_content);
+                        $("#featureModal").modal("show");
+                    },
+                    mouseover: function (e) {
+                        titikgunung.bindTooltip(feature.properties.Nama, {
+                            direction: "left",
+                            sticky: true,
+                        });
+                    },
+                });
+            },
+        });
+
+        $.getJSON("data/GunungIndo.geojson", function (data) {
+            titikgunung.addData(data); // Menambahkan data ke dalam GeoJSON Point Sarana Prasarana
+            map.addLayer(titikgunung); // Menambahkan GeoJSON Point Sarana Prasarana ke dalam peta
+        });
+
+
+        // GeoJSON Polyline Jalan
+        map.createPane('paneJalanGunung');
+        map.getPane("paneJalanGunung").style.zIndex = 401;
+        var jalangunung = L.geoJSON(null, {
+            pane: 'paneJalanGunung',
+            // Style
+            style: function (feature) {
+                return {
+                    color: "#c51b8a",
+                    opacity: 1,
+                    weight: 2,
+                };
+            },
+            // onEachFeature
+
+            onEachFeature: function (feature, layer) {
+                // variable popup content
+                var popup_content =
+                    "Panjang (m): " + feature.properties.LENGTH;
+
+                layer.on({
+                    click: function (e) {
+                        jalangunung.bindPopup(popup_content);
+
+                        //MENAMPILKAN MODAL
+                        $("#featureModalTitle").html("Jalan");
+                        $("#featureModalBody").html("Panjang (m): " + feature.properties.LENGTH);
+                        $("#featureModalBody").html(popup_content);
+                        $("#featureModal").modal("show");
+                    },
+                    mouseover: function (e) {
+                        jalangunung.bindTooltip(feature.properties.LENGTH, {
+                            direction: "auto",
+                            sticky: true,
+                        });
+                    },
+                });
+            },
+        });
+
+        $.getJSON("data/JalanIndo.geojson", function (data) {
+            jalangunung.addData(data); // Menambahkan data ke dalam GeoJSON Polyline Jalan
+            map.addLayer(jalangunung); // Menambahkan GeoJSON Polyline Jalan ke dalam peta
+        });
+
+        var symbologyCategorized = { "Tinggi": "#756bb1", "Sedang": "#bcbddc", "Rendah": "#ece7f2" };
+
+        // GeoJSON Polygon Jumlah Penduduk
+        map.createPane('paneAdminGunung');
+        map.getPane("paneAdminGunung").style.zIndex = 301;
+        var admingunung = L.geoJSON(null, {
+            pane: 'paneAdminGunung',
+            // Style
+            style: function (feature) {
+                return {
+                    color: "gray",
+                    opacity: 1,
+                    weight: 1,
+                    color: "#324ab2",
+                    fillOpacity: 0.8,
+                };
+            },
+            // onEachFeature
+            onEachFeature: function (feature, layer) {
+                // variable popup content
+                var popup_content =
+                    "Kabupaten: " + feature.properties.KAB + "<br>" +
+                    "Provinsi: " + feature.properties.PROV;
+
+                layer.on({
+                    click: function (e) {
+                        admingunung.bindPopup(popup_content);
+
+                        //MENAMPILKAN MODAL
+                        $("#featureModalTitle").html("Informasi Wilayah");
+                        $("#featureModalBody").html("Kabupaten: " + feature.properties.KAB + "<br>" +
+                            "Provinsi: " + feature.properties.PROV);
+                        $("#featureModalBody").html(popup_content);
+                        $("#featureModal").modal("show");
+                    },
+                    mouseover: function (e) {
+                        admingunung.bindTooltip(feature.properties.KAB, {
+                            direction: "auto",
+                            sticky: true,
+                        });
+                    },
+                });
+            },
+
+        });
+
+        $.getJSON("data/AdminIndo.geojson", function (data) {
+            admingunung.addData(data); // Menambahkan data ke dalam GeoJSON Polygon Jumlah Penduduk
+            map.addLayer(admingunung); // Menambahkan GeoJSON Polygon Jumlah Penduduk ke dalam peta
+        });
+
+        // Control Layer
+        var baseMaps = {
+            "Basemap": basemap,
+        };
+
+        var overlayMaps = {
+            "Titik Gunung": titikgunung,
+            "Jalan": jalangunung,
+            "Wilayah": admingunung,
+        };
+
+        var controllayer = L.control.layers(baseMaps, overlayMaps);
+        controllayer.addTo(map);
+
+        // Control Extent
+        L.control.defaultExtent()
+            .addTo(map);
+
+
+        //SEARCH CONTROL
+        var searchControl = new L.Control.Search({
+            layer: admingunung,
+            propertyName: 'KAB',
+            marker: false,
+            moveToLocation: function (latlng, title, map) {
+                //map.fitBounds( latlng.layer.getBounds() );
+                var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+                map.setView(latlng, zoom); // access the zoom
+            }
+        });
+
+        searchControl.on('search:locationfound', function (e) {
+
+            //console.log('search:locationfound', );
+
+            //map.removeLayer(this._markerSearch)
+
+            e.layer.setStyle({ fillColor: '##ffef96', color: '##ffef96' });
+            if (e.layer._popup)
+                e.layer.openPopup();
+
+        }).on('search:collapsed', function (e) {
+
+            admingunung.eachLayer(function (layer) {	//restore feature color
+                admingunung.resetStyle(layer);
+            });
+        });
+
+        map.addControl(searchControl);  //inizialize search control 
+
+        L.Control.Watermark = L.Control.extend({
+            onAdd: function (map) {
+                var img = L.DomUtil.create('img');
+
+                img.src = 'icon/logoSV.png';
+                img.style.width = '200px';
+
+
+                return img;
+            },
+
+            onRemove: function (map) {
+                // Nothing to do here
+            }
+        });
+
+        L.control.watermark = function (opts) {
+            return new L.Control.Watermark(opts);
+        }
+
+        L.control.watermark({ position: 'bottomleft' }).addTo(map);
+
+    </script>
+
+    <!-- Footer -->
+    <div class="footer">
+        Copyright &copy;2024 by Ana Jundiya Muthia Hamzah
+    </div>
+
+</body>
+
+</html>
