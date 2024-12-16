@@ -1,0 +1,54 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis version="3.28.1-Firenze">
+  <identifier>admin_kab_prov_2003_wb</identifier>
+  <parentidentifier></parentidentifier>
+  <language>EN</language>
+  <type>dataset</type>
+  <title>admin_kab_prov_2003_wb</title>
+  <abstract>This data displays the district boundaries of Indonesia for use in the Interactive Forestry Atlas of Indonesia (2009). It was produced by Badan Pusat Statistik (BPS) from the village data also produced by BPS in 2003. Population data for the year 2000 is also included.
+
+Display only</abstract>
+  <keywords vocabulary="gmd:topicCategory">
+    <keyword>Boundaries</keyword>
+  </keywords>
+  <contact>
+    <contactAddress>
+      <type></type>
+      <address>Jl. Dr. Sutomo 6-8,</address>
+      <city>Jakarta </city>
+      <administrativearea></administrativearea>
+      <postalcode>10710</postalcode>
+      <country>Indonesia</country>
+    </contactAddress>
+    <name>Badan Pusat Statistik (BPS)</name>
+    <organization>Badan Pusat Statistik (BPS)</organization>
+    <position></position>
+    <voice>+62213841195</voice>
+    <fax>+62213857046</fax>
+    <email>bpshq@bps.go.id</email>
+    <role>Point of contact</role>
+  </contact>
+  <links>
+    <link mimeType="" name="Shapefile" type="Local Area Network" url="file://\\GISLB\C$\AtlasIndo\Data\Boundaries\admin_kab_prov_2003_wb.shp" format="" size="" description=""/>
+  </links>
+  <fees></fees>
+  <constraints type="Access">None</constraints>
+  <rights>None</rights>
+  <encoding></encoding>
+  <crs>
+    <spatialrefsys nativeFormat="Wkt">
+      <wkt></wkt>
+      <proj4></proj4>
+      <srsid>0</srsid>
+      <srid>0</srid>
+      <authid></authid>
+      <description></description>
+      <projectionacronym></projectionacronym>
+      <ellipsoidacronym></ellipsoidacronym>
+      <geographicflag>false</geographicflag>
+    </spatialrefsys>
+  </crs>
+  <extent>
+    <spatial dimensions="2" minx="95.05965399999999477" maxx="141.00718699999998762" maxz="0" maxy="5.9068839999999998" minz="0" miny="-10.99740700000000082" crs="EPSG:4326"/>
+  </extent>
+</qgis>

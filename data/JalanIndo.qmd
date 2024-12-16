@@ -1,0 +1,46 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis version="3.28.1-Firenze">
+  <identifier>JALAN</identifier>
+  <parentidentifier></parentidentifier>
+  <language>EN</language>
+  <type>dataset</type>
+  <title>JALAN</title>
+  <abstract>This dataset displays detailed roads for Indonesia. It comes from the basemaps of Indonesia, developed by Bakosurtanal. The time period corresponds to the 2003 situation of roads including logging roads. This dataset was prepared by the World Resources Institute for use in the Interactive Atlas of Indonesia's Forests (2009).
+
+Display only</abstract>
+  <keywords vocabulary="gmd:topicCategory">
+    <keyword>roads</keyword>
+  </keywords>
+  <contact>
+    <name></name>
+    <organization></organization>
+    <position></position>
+    <voice></voice>
+    <fax></fax>
+    <email></email>
+    <role>Point of contact</role>
+  </contact>
+  <links>
+    <link mimeType="" name="Shapefile" type="Local Area Network" url="file://\\SCOTT\F$\GIS\Indonesia Atlas (Sekala)\Data\Roads\JALAN.shp" format="" size="" description=""/>
+  </links>
+  <fees></fees>
+  <constraints type="Access">Unrestricted</constraints>
+  <rights>None</rights>
+  <encoding></encoding>
+  <crs>
+    <spatialrefsys nativeFormat="Wkt">
+      <wkt></wkt>
+      <proj4></proj4>
+      <srsid>0</srsid>
+      <srid>0</srid>
+      <authid></authid>
+      <description></description>
+      <projectionacronym></projectionacronym>
+      <ellipsoidacronym></ellipsoidacronym>
+      <geographicflag>false</geographicflag>
+    </spatialrefsys>
+  </crs>
+  <extent>
+    <spatial dimensions="2" minx="95.04402899999999477" maxx="141.00129699999999389" maxz="0" maxy="5.89965600000000023" minz="0" miny="-10.93767899999999926" crs="EPSG:4326"/>
+  </extent>
+</qgis>
